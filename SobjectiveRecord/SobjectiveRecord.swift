@@ -37,7 +37,7 @@ class SobjectiveRecord<T: NSManagedObject> {
     }
     
     class func deleteAll(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) {
-        var objects = self.find(condition: condition, context: context)
+        let objects = self.find(condition: condition, context: context)
         for object in objects {
             context.deleteObject(object)
         }
@@ -65,7 +65,7 @@ class SobjectiveRecord<T: NSManagedObject> {
     // MARK: - Aggregation
 
     class func count(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> Int {
-        var request = self.createFetchRequest(condition: condition, context: context)
+        let request = self.createFetchRequest(condition: condition, context: context)
         var error: NSError? = nil
         var result = context.countForFetchRequest(request, error: &error)
         if result == NSNotFound {
@@ -108,12 +108,13 @@ class SobjectiveRecord<T: NSManagedObject> {
     
     private class func predicateFromDictionary(dict: [String: NSObject], context: NSManagedObjectContext) -> NSPredicate? {
         var subPredicates = [NSPredicate]()
-        var entity = NSEntityDescription.entityForName(T.entityName, inManagedObjectContext: context)
-        for (key, value) in dict {
-            var localKey = T.keyForRemoteKey(key, context: context, entity: entity!)
-            if let _ = entity!.attributesByName[localKey] {
-                if let _predicate = NSPredicate(format: "%K = %@", key, value) {
-                    subPredicates.append(_predicate)
+        if let entity = NSEntityDescription.entityForName(T.entityName, inManagedObjectContext: context) {
+            for (key, value) in dict {
+                let localKey = T.keyForRemoteKey(key, context: context, entity: entity)
+                if let _ = entity.attributesByName[localKey] {
+                    if let predicate = NSPredicate(format: "%K = %@", key, value) {
+                        subPredicates.append(predicate)
+                    }
                 }
             }
         }
@@ -164,8 +165,8 @@ class SobjectiveRecord<T: NSManagedObject> {
         var orders = order.componentsSeparatedByString(",")
         var sortDescriptors = [NSSortDescriptor]()
         for sortKeyAndValue in orders {
-            if let newSortDescriptor = self.sortDescriptor(sortKeyAndValue) {
-                sortDescriptors.append(newSortDescriptor)
+            if let sortDescriptor = self.sortDescriptor(sortKeyAndValue) {
+                sortDescriptors.append(sortDescriptor)
             }
         }
         

@@ -23,17 +23,17 @@ class TwitterStream : NSObject, NSURLConnectionDataDelegate
         var request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, URL: url, parameters: ["delimited": "length"])
         request.account = self.twitterAccount
         self.urlConnection = NSURLConnection(request: request.preparedURLRequest(), delegate: self, startImmediately: false)
-        if let _urlConnection = self.urlConnection {
-            _urlConnection.setDelegateQueue(NSOperationQueue())
-            _urlConnection.start()
+        if let urlConnection = self.urlConnection {
+            urlConnection.setDelegateQueue(NSOperationQueue())
+            urlConnection.start()
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             println("Start Connection")
         }
     }
     
     func stop() {
-        if let _urlConnection = self.urlConnection {
-            _urlConnection.cancel()
+        if let urlConnection = self.urlConnection {
+            urlConnection.cancel()
             self.urlConnection = nil
         }
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
@@ -54,16 +54,16 @@ class TwitterStream : NSObject, NSURLConnectionDataDelegate
         if let _response = response {
             for part in _response.componentsSeparatedByString("\r\n") as [String] {
                 if let _ = part.toInt() {
-                    if let _buffer = self.buffer {
-                        //println("_buffer \n\n\(_buffer)")
+                    if let buffer = self.buffer {
+                        //println("buffer \n\n\(buffer)")
                         
-                        if let _tweetDictionary = NSJSONSerialization.JSONObjectWithData(_buffer.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!, options:NSJSONReadingOptions.AllowFragments, error: nil) as? [String: AnyObject] {
-                            if _tweetDictionary["id_str"] != nil {
+                        if let tweetDictionary = NSJSONSerialization.JSONObjectWithData(buffer.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!, options:NSJSONReadingOptions.AllowFragments, error: nil) as? [String: AnyObject] {
+                            if tweetDictionary["id_str"] != nil {
                                 if let _moc = self.moc {
                                     _moc.performBlock({ () -> Void in
-                                        var t = Tweets.create(attributes: _tweetDictionary, context: _moc)
-                                        if let _userDictionary = _tweetDictionary["user"] as? [String: AnyObject] {
-                                            var u = Users.create(attributes: _userDictionary, context: _moc)
+                                        var t = Tweets.create(attributes: tweetDictionary, context: _moc)
+                                        if let userDictionary = tweetDictionary["user"] as? [String: AnyObject] {
+                                            var u = Users.create(attributes: userDictionary, context: _moc)
                                             t.user = u
                                         }
                                     })
@@ -79,9 +79,9 @@ class TwitterStream : NSObject, NSURLConnectionDataDelegate
             }
         }
         
-        if let _moc = self.moc {
-            _moc.performBlock({ () -> Void in
-                _moc.saveToStore()
+        if let moc = self.moc {
+            moc.performBlock({ () -> Void in
+                moc.save()
             })
         }
     }

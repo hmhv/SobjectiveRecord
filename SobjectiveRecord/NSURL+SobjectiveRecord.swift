@@ -26,8 +26,8 @@ import Foundation
 extension NSURL
 {
     class func defaultModelURL(modelName: String? = nil) -> NSURL {
-        if let name = modelName {
-            return NSBundle.mainBundle().URLForResource(name, withExtension: "momd")!
+        if let _modelName = modelName {
+            return NSBundle.mainBundle().URLForResource(_modelName, withExtension: "momd")!
         }
         else {
             return NSBundle.mainBundle().URLForResource(appName(), withExtension: "momd")!
@@ -35,8 +35,8 @@ extension NSURL
     }
     
     class func defaultStoreURL(fileName: String? = nil) -> NSURL {
-        if let name = fileName {
-            return applicationDefaultDirectory().URLByAppendingPathComponent(name)
+        if let _fileName = fileName {
+            return applicationDefaultDirectory().URLByAppendingPathComponent(_fileName)
         }
         else {
             return applicationDefaultDirectory().URLByAppendingPathComponent(appName().stringByAppendingString(".sqlite"))
@@ -44,12 +44,12 @@ extension NSURL
     }
     
     private class func appName() -> String {
-        var infoDictionary = NSBundle.mainBundle().infoDictionary!
+        let infoDictionary = NSBundle.mainBundle().infoDictionary!
         return infoDictionary["CFBundleName"] as String
     }
     
     private class func applicationDefaultDirectory() -> NSURL {
-        var documentDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let documentDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return documentDirectory.last as NSURL
     }
 }

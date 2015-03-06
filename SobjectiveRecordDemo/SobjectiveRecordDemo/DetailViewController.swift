@@ -33,8 +33,8 @@ class DetailViewController : UIViewController {
         self.moc = self.parentMoc?.createChildContext()
         
         self.moc?.performBlock({ () -> Void in
-            if let _objectId = self.objectId {
-                self.tweet = self.moc!.objectWithID(_objectId) as? Tweet
+            if let objectId = self.objectId {
+                self.tweet = self.moc!.objectWithID(objectId) as? Tweet
             }
             else {
                 self.tweet = Tweets.create(context: self.moc!)
@@ -62,7 +62,7 @@ class DetailViewController : UIViewController {
             self.tweet?.user?.screenName = screenName
             self.tweet?.text = tweetText
             
-            self.moc?.saveToStore()
+            self.moc?.save()
             dispatch_async(dispatch_get_main_queue(), {
                 if let delegate = self.delegate {
                     delegate.detailViewControllerFinished(self)

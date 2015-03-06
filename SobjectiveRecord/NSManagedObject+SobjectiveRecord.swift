@@ -33,7 +33,7 @@ extension NSManagedObject
     }
     
     func saveToStore() {
-        self.managedObjectContext?.saveToStore()
+        self.managedObjectContext?.save()
     }
     
     func delete() {
@@ -41,8 +41,8 @@ extension NSManagedObject
     }
     
     func update(propertis: [String: AnyObject]) -> Self {
-        var attributes = self.entity.attributesByName
-        var relationships = self.entity.relationshipsByName
+        let attributes = self.entity.attributesByName
+        let relationships = self.entity.relationshipsByName
         
         for (key, value) in propertis {
             let localKey = NSManagedObject.keyForRemoteKey(key, context: self.managedObjectContext!, entity: self.entity)
@@ -62,15 +62,11 @@ extension NSManagedObject
             block()
         }
     }
-    
-    func performBlockSynchronously(block: () -> Void) {
-        self.managedObjectContext?.performBlockSynchronously(block)
-    }
 
     // MARK: - Naming
 
     class var entityName: String {
-        var className = self.description().componentsSeparatedByString(".").last!
+        let className = self.description().componentsSeparatedByString(".").last!
         return className
     }
     
@@ -101,7 +97,7 @@ extension NSManagedObject
             localKey = self.mappings?[remoteKey]
             
             if localKey == nil {
-                var camelCasedProperty = remoteKey.toCamelCase()
+                let camelCasedProperty = remoteKey.toCamelCase()
                 
                 if let _ = entity.propertiesByName[camelCasedProperty] {
                     localKey = camelCasedProperty
@@ -124,7 +120,7 @@ extension NSManagedObject
             self.setNilValueForKey(key)
         }
         else {
-            var attributeType = attribute.attributeType
+            let attributeType = attribute.attributeType
             
             var convertedValue: AnyObject = value
             
@@ -201,13 +197,13 @@ extension NSManagedObject
 extension String
 {
     func toCamelCase() -> String {
-        if (self as NSString).length > 0 {
+        if self.utf16Count > 0 {
             var converted = self.stringByReplacingOccurrencesOfString("_", withString: " ", options: NSStringCompareOptions(0))
             converted = converted.capitalizedString
             converted = converted.stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions(0))
-            var startIndex = converted.startIndex
-            var endIndex = advance(startIndex, 1)
-            var firstChar = converted.substringToIndex(endIndex)
+            let startIndex = converted.startIndex
+            let endIndex = advance(startIndex, 1)
+            let firstChar = converted.substringToIndex(endIndex)
             converted = converted.stringByReplacingCharactersInRange(Range<String.Index>(start: converted.startIndex, end: endIndex), withString: firstChar.lowercaseString)
             return converted
         }

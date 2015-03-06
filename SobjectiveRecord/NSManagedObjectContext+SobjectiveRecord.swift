@@ -41,13 +41,13 @@ extension NSManagedObjectContext
     }
     
     func createChildContext() -> NSManagedObjectContext {
-        var context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         context.parentContext = self
         return context
     }
     
     func createChildContextForMainQueue() -> NSManagedObjectContext {
-        var context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         context.parentContext = self
         return context
     }
@@ -57,28 +57,34 @@ extension NSManagedObjectContext
             Default.context.save()
         }
     }
+    
+    class func saveToParent() {
+        Default.context.performBlock {
+            Default.context.save()
+        }
+    }
 
     func save() {
         if self.hasChanges {
             var error: NSError? = nil;
-            var saved = self.save(&error)
+            let saved = self.save(&error)
             if saved == false {
                 println("ERROR WHILE SAVE \(error)")
+            }
+            else if let parentContext = self.parentContext {
+                parentContext.performBlock {
+                    parentContext.save()
+                }
             }
         }
     }
     
-    func saveToStore() {
-        if self.hasChanges {
+    func saveToParent() {
+        if self.hasChanges && self.parentContext != nil {
             var error: NSError? = nil;
-            var saved = self.save(&error)
+            let saved = self.save(&error)
             if saved == false {
                 println("ERROR WHILE SAVE \(error)")
-            }
-            else if let parentMoc = self.parentContext {
-                parentMoc.performBlock {
-                    parentMoc.save()
-                }
             }
         }
     }
@@ -95,14 +101,14 @@ extension NSManagedObjectContext
     
     // Do not use if you don't know what you do.
     func createContext(modelURL: NSURL? = nil, storeURL: NSURL? = nil, useInMemoryStore: Bool = false) -> NSManagedObjectContext {
-        var context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         context.persistentStoreCoordinator = NSPersistentStoreCoordinator.createStoreCoordinator(modelURL: modelURL, storeURL: storeURL, useInMemoryStore: useInMemoryStore)
         return context
     }
     
     // Do not use if you don't know what you do.
     func createContextForMainQueue(modelURL: NSURL? = nil, storeURL: NSURL? = nil, useInMemoryStore: Bool = false) -> NSManagedObjectContext {
-        var context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         context.persistentStoreCoordinator = NSPersistentStoreCoordinator.createStoreCoordinator(modelURL: modelURL, storeURL: storeURL, useInMemoryStore: useInMemoryStore)
         return context
     }

@@ -24,6 +24,9 @@
 import Foundation
 import CoreData
 
+let SRPersistentStoreCoordinatorWillMigratePersistentStore = "SRPersistentStoreCoordinatorWillMigratePersistentStore"
+let SRPersistentStoreCoordinatorDidMigratePersistentStore = "SRPersistentStoreCoordinatorDidMigratePersistentStore"
+
 extension NSPersistentStoreCoordinator
 {
     private struct Default {
@@ -38,14 +41,45 @@ extension NSPersistentStoreCoordinator
         return Default.storeCoordinator;
     }
     
+    class func needMigration(modelURL: NSURL? = nil, storeURL: NSURL? = nil) -> Bool {
+        if let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL ?? NSURL.defaultModelURL()) {
+            if let storeMetadata = self.metadataForPersistentStoreOfType(NSSQLiteStoreType, URL: storeURL ?? NSURL.defaultStoreURL(), error: nil) {
+                if managedObjectModel.isConfiguration(nil, compatibleWithStoreMetadata: storeMetadata) == false {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
     class func createStoreCoordinator(modelURL: NSURL? = nil, storeURL: NSURL? = nil, useInMemoryStore: Bool = false) -> NSPersistentStoreCoordinator {
         
         let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL ?? NSURL.defaultModelURL())
         
-        var storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel!)
+        let storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel!)
         
-        storeCoordinator.addPersistentStoreWithType((useInMemoryStore ? NSInMemoryStoreType : NSSQLiteStoreType), configuration: nil, URL: storeURL ?? NSURL.defaultStoreURL(), options: nil, error: nil)
+        var error: NSError? = nil
+        var store = storeCoordinator.addPersistentStoreWithType((useInMemoryStore ? NSInMemoryStoreType : NSSQLiteStoreType), configuration: nil, URL: storeURL ?? NSURL.defaultStoreURL(), options: nil, error: &error)
+        
+        if store == nil && error != nil {
+            println("ERROR WHILE CREATING PERSISTENT STORE \(error)")
+            if error!.code == NSPersistentStoreIncompatibleVersionHashError {
+                error = nil
+                let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
+                
+                NSNotificationCenter.defaultCenter().postNotificationName(SRPersistentStoreCoordinatorWillMigratePersistentStore, object: nil)
+                
+                store = storeCoordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL ?? NSURL.defaultStoreURL(), options: options, error: &error)
+                
+                NSNotificationCenter.defaultCenter().postNotificationName(SRPersistentStoreCoordinatorDidMigratePersistentStore, object: nil)
+                
+                if store == nil && error != nil {
+                    println("ERROR WHILE MIGRATING PERSISTENT STORE \(error)")
+                }
+            }
+        }
         
         return storeCoordinator
     }
 }
+

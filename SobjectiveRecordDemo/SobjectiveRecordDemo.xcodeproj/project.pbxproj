@@ -55,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		101E2DA11AAA525D00493647 /* SobjectiveRecordDemo 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SobjectiveRecordDemo 2.xcdatamodel"; sourceTree = "<group>"; };
 		A7550ADC1AA8633E002D868A /* SobjectiveRecordDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SobjectiveRecordDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7550AE01AA8633E002D868A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7550AE11AA8633E002D868A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -593,9 +594,10 @@
 		A775D9231AA863D5001D38F5 /* SobjectiveRecordDemo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				101E2DA11AAA525D00493647 /* SobjectiveRecordDemo 2.xcdatamodel */,
 				A775D9241AA863D5001D38F5 /* SobjectiveRecordDemo.xcdatamodel */,
 			);
-			currentVersion = A775D9241AA863D5001D38F5 /* SobjectiveRecordDemo.xcdatamodel */;
+			currentVersion = 101E2DA11AAA525D00493647 /* SobjectiveRecordDemo 2.xcdatamodel */;
 			path = SobjectiveRecordDemo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

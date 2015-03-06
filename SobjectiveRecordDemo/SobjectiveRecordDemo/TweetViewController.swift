@@ -118,7 +118,7 @@ class TweetViewController : UIViewController, NSFetchedResultsControllerDelegate
                     , context: self.moc!)
                 t.user = u
             }
-            self.moc?.saveToStore()
+            self.moc?.save()
         })
     }
 
@@ -132,9 +132,9 @@ class TweetViewController : UIViewController, NSFetchedResultsControllerDelegate
     }
     
     func startTwitterStream() {
-        if let _tweetAccount = self.twitterAccount {
+        if let tweetAccount = self.twitterAccount {
             self.twitterStream = TwitterStream()
-            self.twitterStream!.twitterAccount = _tweetAccount
+            self.twitterStream!.twitterAccount = tweetAccount
             self.twitterStream!.moc = self.workMoc
             
             self.twitterStream!.start()
@@ -146,8 +146,8 @@ class TweetViewController : UIViewController, NSFetchedResultsControllerDelegate
     }
     
     func stopTwitterStream() {
-        if let _twitterStream = self.twitterStream {
-            _twitterStream.stop()
+        if let twitterStream = self.twitterStream {
+            twitterStream.stop()
             self.twitterStream = nil
         }
         self.twitterStreamButton.setTitle("Start Twitter Stream", forState: UIControlState.Normal)
