@@ -30,9 +30,6 @@ class TweetViewController : UIViewController, NSFetchedResultsControllerDelegate
         
         self.automaticallyAdjustsScrollViewInsets = false;
 
-        // read below article for 3 layaer context detail
-        // http://www.cocoanetics.com/2012/07/multi-context-coredata/
-
         if self.use3Layer {
             self.moc = NSManagedObjectContext.defaultContext.createChildContextForMainQueue()
         }

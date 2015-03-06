@@ -60,7 +60,7 @@ extension NSManagedObjectContext
     
     class func saveToParent() {
         Default.context.performBlock {
-            Default.context.save()
+            Default.context.saveToParent()
         }
     }
 

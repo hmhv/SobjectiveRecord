@@ -32,8 +32,8 @@ extension NSManagedObject
         self.managedObjectContext?.save()
     }
     
-    func saveToStore() {
-        self.managedObjectContext?.save()
+    func saveToParent() {
+        self.managedObjectContext?.saveToParent()
     }
     
     func delete() {

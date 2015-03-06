@@ -60,21 +60,97 @@ class ViewController: UIViewController {
     }
 
     @IBAction func test() {
-        var moc = NSManagedObjectContext.defaultContext
         
-        moc.performBlock { () -> Void in
-            println("Before Delete \(Tweets.count()) tweets of \(Users.count()) users")
-            
-            var tweets = Users.find(condition: ["lang": "ja"], fetchLimit: 5, order: "name d")
-            
-            println("Users \(tweets.count)")
-            
-            for u in tweets {
-                println("User -> \(u.name)")
-            }
-            
-        }
+//        NSManagedObjectContext.defaultContext.performBlock {
+//            // your code here
+//        }
+//        
+//        var moc = NSManagedObjectContext.defaultContext.createChildContext()
+//        moc.performBlock {
+//            // your code here
+//        }
 
+        
+//        NSManagedObjectContext.defaultContext.performBlock {
+//            var t = Tweets.create()
+//            t.text = "I am here"
+//            t.save()
+//            
+//            t = Tweets.create(attributes: ["text" : "hello!!", "lang" : "en"])
+//            t.delete()
+//        }
+//        
+//        NSManagedObjectContext.defaultContext.performBlock {
+//            Tweets.deleteAll()
+//            NSManagedObjectContext.defaultContext.save()
+//        }
+
+//        NSManagedObjectContext.defaultContext.performBlock {
+//            var tweets = Tweets.all()
+//            
+//            var tweetsInEnglish = Tweets.find(condition: "lang == 'en'")
+//            
+//            var hmhv = Users.first(condition: "screenName == 'hmhv'")
+//            
+//            var englishMen = Users.find(condition: ["lang" : "en", "timeZone" : "London"])
+//            
+//            var predicate = NSPredicate(format: "friendsCount > 100")
+//            var manyFriendsUsers = Users.find(condition: predicate)
+//        }
+
+//        NSManagedObjectContext.defaultContext.performBlock {
+//            var sortedUsers = Users.all(order: "name")
+//            
+//            var allUsers = Users.all(order: "screenName ASC, name DESC")
+//            // or
+//            var allUsers2 = Users.all(order: "screenName A, name D")
+//            // or
+//            var allUsers3 = Users.all(order: "screenName, name d")
+//            
+//            var manyFriendsUsers = Users.find(condition: "friendsCount > 100", order: "screenName DESC")
+//            
+//            var fiveEnglishUsers = Users.find(condition: "lang == 'en'", order: "screenName ASC", fetchLimit: 5)
+//        }
+
+//        NSManagedObjectContext.defaultContext.performBlock {
+//            var allUserCount = Users.count()
+//            
+//            var englishUserCount = Users.count(condition: "lang == 'en'")
+//        }
+
+//        NSManagedObjectContext.defaultContext.performBlock {
+//            var frc = Users.createFetchedResultsController(order: "name")
+//            frc.delegate = self
+//            
+//            var error: NSError? = nil
+//            if frc.performFetch(&error) {
+//                self.reloadData()
+//            }
+//        }
+
+//        var childContext = NSManagedObjectContext.defaultContext.createChildContext()
+//        
+//        childContext.performBlock {
+//            var john = Users.create()
+//            john.name = "John"
+//            john.save()
+//            
+//            var savedJohn = Users.first(condition: "name == 'John'", context: childContext)
+//            
+//            var manyFriendsUsers = Users.find(condition: "friendsCount > 100", order: "screenName DESC", context: childContext)
+//            
+//            var allUsers = Users.all(context: childContext)
+//        }
+
+        
+//        var modelURL = NSURL.defaultModelURL(modelName: "model_name")
+//        NSPersistentStoreCoordinator.setupDefaultStore(modelURL: modelURL)
+//
+//        // or
+//        var storeURL = NSURL.defaultStoreURL(fileName: "file_name.sqlite")
+//        NSPersistentStoreCoordinator.setupDefaultStore(storeURL: storeURL)
+
+//        NSPersistentStoreCoordinator.setupDefaultStore(useInMemoryStore: true)
     }
     
 }

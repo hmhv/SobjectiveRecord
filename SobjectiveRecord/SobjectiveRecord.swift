@@ -36,7 +36,11 @@ class SobjectiveRecord<T: NSManagedObject> {
         return object
     }
     
-    class func deleteAll(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) {
+    class func deleteAll(context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) {
+        self.delete(context: context)
+    }
+
+    class func delete(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) {
         let objects = self.find(condition: condition, context: context)
         for object in objects {
             context.deleteObject(object)

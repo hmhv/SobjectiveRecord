@@ -9,13 +9,9 @@
 import Foundation
 import CoreData
 
-extension User : Printable
+extension User
 {
     override class var mappings: [String: String]? {
         return ["description" : "userDescription"]
-    }
-
-    override var description: String {
-        return "aaa"
     }
 }
