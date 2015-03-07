@@ -1,5 +1,7 @@
 # SobjectiveRecord
 
+[![Join the chat at https://gitter.im/hmhv/SobjectiveRecord](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hmhv/SobjectiveRecord?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![SobjectiveRecord version](https://img.shields.io/cocoapods/v/SobjectiveRecord.svg?style=plastic)](http://cocoadocs.org/docsets/HobjectiveRecord) [![SobjectiveRecord platform](https://img.shields.io/cocoapods/p/SobjectiveRecord.svg?style=plastic)](http://cocoadocs.org/docsets/SobjectiveRecord) [![SobjectiveRecord license](https://img.shields.io/cocoapods/l/SobjectiveRecord.svg?style=plastic)](http://opensource.org/licenses/MIT)
 
 SobjectiveRecord is Swift version of [HobjectiveRecord](https://github.com/hmhv/HobjectiveRecord).
