@@ -24,7 +24,7 @@
 import Foundation
 import CoreData
 
-extension NSManagedObjectContext
+public extension NSManagedObjectContext
 {
     private struct Default {
         static let context: NSManagedObjectContext = {
@@ -34,37 +34,37 @@ extension NSManagedObjectContext
             }()
     }
 
-    class var defaultContext: NSManagedObjectContext {
+    public class var defaultContext: NSManagedObjectContext {
         get {
             return Default.context;
         }
     }
     
-    func createChildContext() -> NSManagedObjectContext {
+    public func createChildContext() -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         context.parentContext = self
         return context
     }
     
-    func createChildContextForMainQueue() -> NSManagedObjectContext {
+    public func createChildContextForMainQueue() -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         context.parentContext = self
         return context
     }
     
-    class func save() {
+    public class func save() {
         Default.context.performBlock {
             Default.context.save()
         }
     }
     
-    class func saveToParent() {
+    public class func saveToParent() {
         Default.context.performBlock {
             Default.context.saveToParent()
         }
     }
 
-    func save() {
+    public func save() {
         if self.hasChanges {
             var error: NSError? = nil;
             let saved = self.save(&error)
@@ -79,7 +79,7 @@ extension NSManagedObjectContext
         }
     }
     
-    func saveToParent() {
+    public func saveToParent() {
         if self.hasChanges && self.parentContext != nil {
             var error: NSError? = nil;
             let saved = self.save(&error)
@@ -89,7 +89,7 @@ extension NSManagedObjectContext
         }
     }
     
-    func performBlockSynchronously(block: () -> Void) {
+    public func performBlockSynchronously(block: () -> Void) {
         var group = dispatch_group_create();
         dispatch_group_enter(group);
         self.performBlock {
@@ -100,14 +100,14 @@ extension NSManagedObjectContext
     }
     
     // Do not use if you don't know what you do.
-    func createContext(modelURL: NSURL? = nil, storeURL: NSURL? = nil, useInMemoryStore: Bool = false) -> NSManagedObjectContext {
+    public func createContext(modelURL: NSURL? = nil, storeURL: NSURL? = nil, useInMemoryStore: Bool = false) -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         context.persistentStoreCoordinator = NSPersistentStoreCoordinator.createStoreCoordinator(modelURL: modelURL, storeURL: storeURL, useInMemoryStore: useInMemoryStore)
         return context
     }
     
     // Do not use if you don't know what you do.
-    func createContextForMainQueue(modelURL: NSURL? = nil, storeURL: NSURL? = nil, useInMemoryStore: Bool = false) -> NSManagedObjectContext {
+    public func createContextForMainQueue(modelURL: NSURL? = nil, storeURL: NSURL? = nil, useInMemoryStore: Bool = false) -> NSManagedObjectContext {
         let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         context.persistentStoreCoordinator = NSPersistentStoreCoordinator.createStoreCoordinator(modelURL: modelURL, storeURL: storeURL, useInMemoryStore: useInMemoryStore)
         return context

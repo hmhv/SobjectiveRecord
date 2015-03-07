@@ -24,11 +24,11 @@
 import Foundation
 import CoreData
 
-class SobjectiveRecord<T: NSManagedObject> {
+public class SobjectiveRecord<T: NSManagedObject> {
 
     // MARK: - Creation / Deletion
 
-    class func create(attributes: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> T {
+    public class func create(attributes: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> T {
         var object = NSEntityDescription.insertNewObjectForEntityForName(T.entityName, inManagedObjectContext: context) as T
         if let _attributes = attributes as [String: AnyObject]? {
             object.update(_attributes)
@@ -36,11 +36,11 @@ class SobjectiveRecord<T: NSManagedObject> {
         return object
     }
     
-    class func deleteAll(context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) {
+    public class func deleteAll(context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) {
         self.delete(context: context)
     }
 
-    class func delete(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) {
+    public class func delete(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) {
         let objects = self.find(condition: condition, context: context)
         for object in objects {
             context.deleteObject(object)
@@ -49,26 +49,26 @@ class SobjectiveRecord<T: NSManagedObject> {
     
     // MARK: - Finders
 
-    class func all(order: String? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> [T] {
+    public class func all(order: String? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> [T] {
         return self.fetchWithCondition(order: order, context: context)
     }
 
-    class func find(condition: AnyObject? = nil, order: String? = nil, fetchLimit: Int = 0, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> [T] {
+    public class func find(condition: AnyObject? = nil, order: String? = nil, fetchLimit: Int = 0, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> [T] {
         return self.fetchWithCondition(condition: condition, order: order, fetchLimit: fetchLimit, context: context)
     }
 
-    class func first(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> T? {
+    public class func first(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> T? {
         return self.fetchWithCondition(condition: condition, fetchLimit: 0, context: context).first
     }
 
-    class func firstOrCreate(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> T {
+    public class func firstOrCreate(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> T {
         var object = self.fetchWithCondition(condition: condition, fetchLimit: 0, context: context).first
         return object ?? self.create(attributes: condition, context: context)
     }
 
     // MARK: - Aggregation
 
-    class func count(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> Int {
+    public class func count(condition: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> Int {
         let request = self.createFetchRequest(condition: condition, context: context)
         var error: NSError? = nil
         var result = context.countForFetchRequest(request, error: &error)
@@ -81,7 +81,7 @@ class SobjectiveRecord<T: NSManagedObject> {
     
     // MARK: - FetchedResultsController
 
-    class func createFetchedResultsController(condition: AnyObject? = nil, order: String? = nil, sectionNameKeyPath: String? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> NSFetchedResultsController {
+    public class func createFetchedResultsController(condition: AnyObject? = nil, order: String? = nil, sectionNameKeyPath: String? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> NSFetchedResultsController {
         var request = self.createFetchRequest(condition: condition, order: order, context: context)
         return NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: sectionNameKeyPath, cacheName: nil)
     }

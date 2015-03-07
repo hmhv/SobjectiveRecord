@@ -23,9 +23,9 @@
 
 import Foundation
 
-extension NSURL
+public extension NSURL
 {
-    class func defaultModelURL(modelName: String? = nil) -> NSURL {
+    public class func defaultModelURL(modelName: String? = nil) -> NSURL {
         if let _modelName = modelName {
             return NSBundle.mainBundle().URLForResource(_modelName, withExtension: "momd")!
         }
@@ -34,7 +34,7 @@ extension NSURL
         }
     }
     
-    class func defaultStoreURL(fileName: String? = nil) -> NSURL {
+    public class func defaultStoreURL(fileName: String? = nil) -> NSURL {
         if let _fileName = fileName {
             return applicationDefaultDirectory().URLByAppendingPathComponent(_fileName)
         }

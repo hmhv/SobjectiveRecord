@@ -24,19 +24,19 @@
 import Foundation
 import CoreData
 
-extension NSManagedObject
+public extension NSManagedObject
 {
     // MARK: - Instance Method
     
-    func save() {
+    public func save() {
         self.managedObjectContext?.save()
     }
     
-    func saveToParent() {
+    public func saveToParent() {
         self.managedObjectContext?.saveToParent()
     }
     
-    func delete() {
+    public func delete() {
         self.managedObjectContext?.deleteObject(self)
     }
     
@@ -57,7 +57,7 @@ extension NSManagedObject
         return self
     }
     
-    func performBlock(block: () -> Void) {
+    public func performBlock(block: () -> Void) {
         self.managedObjectContext?.performBlock() {
             block()
         }
@@ -65,28 +65,28 @@ extension NSManagedObject
 
     // MARK: - Naming
 
-    class var entityName: String {
+    public class var entityName: String {
         let className = self.description().componentsSeparatedByString(".").last!
         return className
     }
     
     // MARK: - Fetching
 
-    class var returnsObjectsAsFaults: Bool {
+    public class var returnsObjectsAsFaults: Bool {
         return false
     }
     
-    class var relationshipKeyPathsForPrefetching: [String]? {
+    public class var relationshipKeyPathsForPrefetching: [String]? {
         return nil
     }
     
     // MARK: - Mappings
     
-    class var mappings: [String: String]? {
+    public class var mappings: [String: String]? {
         return nil
     }
     
-    class func useFindOrCreate() -> Bool {
+    public class func useFindOrCreate() -> Bool {
         return false
     }
         

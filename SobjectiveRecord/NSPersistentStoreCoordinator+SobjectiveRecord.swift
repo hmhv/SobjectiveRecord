@@ -24,8 +24,8 @@
 import Foundation
 import CoreData
 
-let SRPersistentStoreCoordinatorWillMigratePersistentStore = "SRPersistentStoreCoordinatorWillMigratePersistentStore"
-let SRPersistentStoreCoordinatorDidMigratePersistentStore = "SRPersistentStoreCoordinatorDidMigratePersistentStore"
+public let SRPersistentStoreCoordinatorWillMigratePersistentStore = "SRPersistentStoreCoordinatorWillMigratePersistentStore"
+public let SRPersistentStoreCoordinatorDidMigratePersistentStore = "SRPersistentStoreCoordinatorDidMigratePersistentStore"
 
 extension NSPersistentStoreCoordinator
 {
@@ -34,14 +34,14 @@ extension NSPersistentStoreCoordinator
         static var storeCoordinator: NSPersistentStoreCoordinator? = nil
     }
     
-    class func setupDefaultStore(modelURL: NSURL? = nil, storeURL: NSURL? = nil, useInMemoryStore: Bool = false) -> NSPersistentStoreCoordinator? {
+    public class func setupDefaultStore(modelURL: NSURL? = nil, storeURL: NSURL? = nil, useInMemoryStore: Bool = false) -> NSPersistentStoreCoordinator? {
         dispatch_once(&Default.token, {
             Default.storeCoordinator = NSPersistentStoreCoordinator.createStoreCoordinator(modelURL: modelURL, storeURL: storeURL, useInMemoryStore: useInMemoryStore)
         })
         return Default.storeCoordinator;
     }
     
-    class func needMigration(modelURL: NSURL? = nil, storeURL: NSURL? = nil) -> Bool {
+    public class func needMigration(modelURL: NSURL? = nil, storeURL: NSURL? = nil) -> Bool {
         if let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL ?? NSURL.defaultModelURL()) {
             if let storeMetadata = self.metadataForPersistentStoreOfType(NSSQLiteStoreType, URL: storeURL ?? NSURL.defaultStoreURL(), error: nil) {
                 if managedObjectModel.isConfiguration(nil, compatibleWithStoreMetadata: storeMetadata) == false {
