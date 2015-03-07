@@ -131,7 +131,7 @@ class ViewController: UIViewController {
 //        var childContext = NSManagedObjectContext.defaultContext.createChildContext()
 //        
 //        childContext.performBlock {
-//            var john = Users.create()
+//            var john = Users.create(context: childContext)
 //            john.name = "John"
 //            john.save()
 //            
