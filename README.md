@@ -1,5 +1,7 @@
 # SobjectiveRecord
 
+[![SobjectiveRecord version](https://img.shields.io/cocoapods/v/SobjectiveRecord.svg?style=plastic)](http://cocoadocs.org/docsets/HobjectiveRecord)[![SobjectiveRecord platform](https://img.shields.io/cocoapods/p/SobjectiveRecord.svg?style=plastic)](http://cocoadocs.org/docsets/SobjectiveRecord)[![SobjectiveRecord license](https://img.shields.io/cocoapods/l/SobjectiveRecord.svg?style=plastic)](http://opensource.org/licenses/MIT)
+
 SobjectiveRecord is Swift version of [HobjectiveRecord](https://github.com/hmhv/HobjectiveRecord).
 
 HobjectiveRecord is inspired by [ObjectiveRecord](https://github.com/supermarin/ObjectiveRecord) and customized for background `NSManagedObjectContext`.
@@ -14,7 +16,7 @@ Before you use, i recommend you read these articles
 1. copy all files in folder `SobjectiveRecord` to your project.<br>
    or Install with [CocoaPods](http://cocoapods.org) `pod 'SobjectiveRecord'`
 
-> You should use [CocoaPods](http://cocoapods.org) version 0.36 for Swift
+> You should use [CocoaPods](http://cocoapods.org) version 0.36 for Swift<br>
 > for details read [Pod Authors Guide to CocoaPods Frameworks](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/)
 
 #### Initialize
@@ -22,6 +24,8 @@ Before you use, i recommend you read these articles
 setup your store.
 
 ``` swift
+import SobjectiveRecord // when useing CocoaPods
+
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
     NSPersistentStoreCoordinator.setupDefaultStore()
