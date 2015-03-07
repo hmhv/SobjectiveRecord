@@ -19,15 +19,7 @@ Before you use, i recommend you read these articles
 
 #### Initialize
 
-you should make your model's typealias first.
-
-``` swift
-// User, Tweet are NSManagedObject's subclass
-typealias Users = SobjectiveRecord<User>
-typealias Tweets = SobjectiveRecord<Tweet>
-```
-
-then setup your store.
+setup your store.
 
 ``` swift
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -41,6 +33,24 @@ func application(application: UIApplication, didFinishLaunchingWithOptions launc
 ```
 
 ### Basic
+
+
+your entities must have prefix (like projectName.entityName)
+
+> ![entity_prefix.png](https://qiita-image-store.s3.amazonaws.com/0/25832/16d58c4f-b0a8-1240-3488-b9751ea21b1d.png "entity_prefix.png")
+
+
+you can make your model's typealias for convenience
+
+``` swift
+// User, Tweet are NSManagedObject's subclass
+typealias Users = SobjectiveRecord<User>
+typealias Tweets = SobjectiveRecord<Tweet>
+
+// so, it's same
+var user = SobjectiveRecord<User>.create()
+var user = Users.create()
+```
 
 use `performBlock`
 
