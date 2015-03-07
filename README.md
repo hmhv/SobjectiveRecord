@@ -1,8 +1,9 @@
 # SobjectiveRecord
 
-[![SobjectiveRecord version](https://img.shields.io/cocoapods/v/SobjectiveRecord.svg?style=plastic)](http://cocoadocs.org/docsets/HobjectiveRecord)[![SobjectiveRecord platform](https://img.shields.io/cocoapods/p/SobjectiveRecord.svg?style=plastic)](http://cocoadocs.org/docsets/SobjectiveRecord)[![SobjectiveRecord license](https://img.shields.io/cocoapods/l/SobjectiveRecord.svg?style=plastic)](http://opensource.org/licenses/MIT)
+[![SobjectiveRecord version](https://img.shields.io/cocoapods/v/SobjectiveRecord.svg?style=plastic)](http://cocoadocs.org/docsets/HobjectiveRecord) [![SobjectiveRecord platform](https://img.shields.io/cocoapods/p/SobjectiveRecord.svg?style=plastic)](http://cocoadocs.org/docsets/SobjectiveRecord) [![SobjectiveRecord license](https://img.shields.io/cocoapods/l/SobjectiveRecord.svg?style=plastic)](http://opensource.org/licenses/MIT)
 
 SobjectiveRecord is Swift version of [HobjectiveRecord](https://github.com/hmhv/HobjectiveRecord).
+**with Xcode 6.1.1**
 
 HobjectiveRecord is inspired by [ObjectiveRecord](https://github.com/supermarin/ObjectiveRecord) and customized for background `NSManagedObjectContext`.
 
