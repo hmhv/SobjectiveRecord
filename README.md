@@ -12,7 +12,10 @@ Before you use, i recommend you read these articles
 #### Usage
 
 1. copy all files in folder `SobjectiveRecord` to your project.<br>
-   ~~or Install with [CocoaPods](http://cocoapods.org) `pod 'SobjectiveRecord'`~~
+   or Install with [CocoaPods](http://cocoapods.org) `pod 'SobjectiveRecord'`
+
+> You should use [CocoaPods](http://cocoapods.org) version 0.36 for Swift
+> for details read [Pod Authors Guide to CocoaPods Frameworks](http://blog.cocoapods.org/Pod-Authors-Guide-to-CocoaPods-Frameworks/)
 
 #### Initialize
 
