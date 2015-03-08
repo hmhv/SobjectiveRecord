@@ -119,6 +119,14 @@ class ViewController: UIViewController {
 //        }
 
 //        NSManagedObjectContext.defaultContext.performBlock {
+//            
+//            Users.batchUpdate(condition: "friendsCount > 10", propertiesToUpdate: ["friendsCount": 0])
+//
+//            // update all entities
+//            Users.batchUpdate(propertiesToUpdate: ["friendsCount": 100])
+//        }
+        
+//        NSManagedObjectContext.defaultContext.performBlock {
 //            var frc = Users.createFetchedResultsController(order: "name")
 //            frc.delegate = self
 //            

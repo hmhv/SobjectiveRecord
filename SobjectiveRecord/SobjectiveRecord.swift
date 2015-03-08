@@ -78,6 +78,26 @@ public class SobjectiveRecord<T: NSManagedObject> {
         }
         return result
     }
+
+    // MARK: - BatchUpdate
+    
+    public class func batchUpdate(condition: AnyObject? = nil, propertiesToUpdate: [String: AnyObject], context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> UInt {
+        var result = self.batchUpdate(condition: condition, propertiesToUpdate: propertiesToUpdate, resultType: .UpdatedObjectsCountResultType, context: context)
+        if let resultCount : UInt = result.result as? UInt {
+            return resultCount
+        }
+        return 0
+    }
+
+    public class func batchUpdate(condition: AnyObject? = nil, propertiesToUpdate: [String: AnyObject], resultType: NSBatchUpdateRequestResultType, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> NSBatchUpdateResult {
+        var request = self.createBatchUpdateRequest(condition: condition, propertiesToUpdate: propertiesToUpdate, resultType: resultType, context: context)
+        var error: NSError? = nil
+        var result = context.executeRequest(request, error: &error) as NSBatchUpdateResult
+        if error != nil {
+            println("ERROR WHILE EXECUTE BATCH UPDATE REEQUEST \(error)");
+        }
+        return result
+    }
     
     // MARK: - FetchedResultsController
 
@@ -88,11 +108,28 @@ public class SobjectiveRecord<T: NSManagedObject> {
 
     // MARK: - Private
 
-    private class func createFetchRequest(condition: AnyObject? = nil, order: String? = nil, fetchLimit: Int = 0, context: NSManagedObjectContext) -> NSFetchRequest {
-        var request = NSFetchRequest(entityName: T.entityName)
+    private class func createBatchUpdateRequest(condition: AnyObject? = nil, propertiesToUpdate: [String: AnyObject], resultType: NSBatchUpdateRequestResultType, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> NSBatchUpdateRequest {
+        let entity = NSEntityDescription.entityForName(T.entityName, inManagedObjectContext: context)!
+        var request = NSBatchUpdateRequest.init(entity: entity)
         
         if let _condition: AnyObject = condition {
-            request.predicate = self.predicate(_condition, context: context)
+            request.predicate = self.predicate(_condition, entity: entity, context: context)
+        }
+
+        request.propertiesToUpdate = propertiesToUpdate
+        
+        request.resultType = resultType
+        
+        return request
+    }
+
+    private class func createFetchRequest(condition: AnyObject? = nil, order: String? = nil, fetchLimit: Int = 0, context: NSManagedObjectContext) -> NSFetchRequest {
+        let entity = NSEntityDescription.entityForName(T.entityName, inManagedObjectContext: context)!
+        var request = NSFetchRequest()
+        request.entity = entity
+        
+        if let _condition: AnyObject = condition {
+            request.predicate = self.predicate(_condition, entity: entity, context: context)
         }
         
         if let _order = order {
@@ -110,22 +147,20 @@ public class SobjectiveRecord<T: NSManagedObject> {
         return request
     }
     
-    private class func predicateFromDictionary(dict: [String: NSObject], context: NSManagedObjectContext) -> NSPredicate? {
+    private class func predicateFromDictionary(dict: [String: NSObject], entity: NSEntityDescription, context: NSManagedObjectContext) -> NSPredicate? {
         var subPredicates = [NSPredicate]()
-        if let entity = NSEntityDescription.entityForName(T.entityName, inManagedObjectContext: context) {
-            for (key, value) in dict {
-                let localKey = T.keyForRemoteKey(key, context: context, entity: entity)
-                if let _ = entity.attributesByName[localKey] {
-                    if let predicate = NSPredicate(format: "%K = %@", key, value) {
-                        subPredicates.append(predicate)
-                    }
+        for (key, value) in dict {
+            let localKey = T.keyForRemoteKey(key, context: context, entity: entity)
+            if let _ = entity.attributesByName[localKey] {
+                if let predicate = NSPredicate(format: "%K = %@", key, value) {
+                    subPredicates.append(predicate)
                 }
             }
         }
         return subPredicates.count > 0 ? NSCompoundPredicate.andPredicateWithSubpredicates(subPredicates) : nil
     }
 
-    private class func predicate(condition: AnyObject, context: NSManagedObjectContext) -> NSPredicate? {
+    private class func predicate(condition: AnyObject, entity: NSEntityDescription, context: NSManagedObjectContext) -> NSPredicate? {
         if let _condition = condition as? NSPredicate {
             return _condition
         }
@@ -135,7 +170,7 @@ public class SobjectiveRecord<T: NSManagedObject> {
         }
         
         if let _condition = condition as? [String: NSObject] {
-            return self.predicateFromDictionary(_condition, context: context)
+            return self.predicateFromDictionary(_condition, entity: entity, context: context)
         }
         
         return nil
