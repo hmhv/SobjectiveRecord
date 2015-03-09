@@ -27,13 +27,13 @@ Before you use, i recommend you read these articles
 setup your store.
 
 ``` swift
-import SobjectiveRecord // when useing CocoaPods
+import SobjectiveRecord // when using CocoaPods
 
 func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
     NSPersistentStoreCoordinator.setupDefaultStore()
 
-	// youre code here
+	// your code here
 	
     return true
 }
