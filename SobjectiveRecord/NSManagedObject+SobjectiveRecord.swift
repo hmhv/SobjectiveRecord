@@ -91,7 +91,7 @@ public extension NSManagedObject
     }
         
     class func keyForRemoteKey(remoteKey: String, context: NSManagedObjectContext, entity: NSEntityDescription) -> String {
-        var localKey = self.keyMappingCache.objectForKey(remoteKey) as String?
+        var localKey = self.keyMappingCache.objectForKey(remoteKey) as! String?
         
         if localKey == nil {
             localKey = self.mappings?[remoteKey]
@@ -197,7 +197,7 @@ public extension NSManagedObject
 extension String
 {
     func toCamelCase() -> String {
-        if self.utf16Count > 0 {
+        if self.isEmpty == false {
             var converted = self.stringByReplacingOccurrencesOfString("_", withString: " ", options: NSStringCompareOptions(0))
             converted = converted.capitalizedString
             converted = converted.stringByReplacingOccurrencesOfString(" ", withString: "", options: NSStringCompareOptions(0))

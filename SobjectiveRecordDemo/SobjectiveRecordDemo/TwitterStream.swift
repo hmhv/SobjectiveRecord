@@ -52,7 +52,7 @@ class TwitterStream : NSObject, NSURLConnectionDataDelegate
         var response = NSString(data: data, encoding: NSUTF8StringEncoding)
         
         if let _response = response {
-            for part in _response.componentsSeparatedByString("\r\n") as [String] {
+            for part in _response.componentsSeparatedByString("\r\n") as! [String] {
                 if let _ = part.toInt() {
                     if let buffer = self.buffer {
                         //println("buffer \n\n\(buffer)")

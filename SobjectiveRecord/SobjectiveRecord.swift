@@ -29,8 +29,8 @@ public class SobjectiveRecord<T: NSManagedObject> {
     // MARK: - Creation / Deletion
 
     public class func create(attributes: AnyObject? = nil, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> T {
-        var object = NSEntityDescription.insertNewObjectForEntityForName(T.entityName, inManagedObjectContext: context) as T
-        if let _attributes = attributes as [String: AnyObject]? {
+        var object = NSEntityDescription.insertNewObjectForEntityForName(T.entityName, inManagedObjectContext: context) as! T
+        if let _attributes = attributes as! [String: AnyObject]? {
             object.update(_attributes)
         }
         return object
@@ -92,7 +92,7 @@ public class SobjectiveRecord<T: NSManagedObject> {
     public class func batchUpdate(condition: AnyObject? = nil, propertiesToUpdate: [String: AnyObject], resultType: NSBatchUpdateRequestResultType, context: NSManagedObjectContext = NSManagedObjectContext.defaultContext) -> NSBatchUpdateResult {
         var request = self.createBatchUpdateRequest(condition: condition, propertiesToUpdate: propertiesToUpdate, resultType: resultType, context: context)
         var error: NSError? = nil
-        var result = context.executeRequest(request, error: &error) as NSBatchUpdateResult
+        var result = context.executeRequest(request, error: &error) as! NSBatchUpdateResult
         if error != nil {
             println("ERROR WHILE EXECUTE BATCH UPDATE REEQUEST \(error)");
         }
@@ -152,9 +152,8 @@ public class SobjectiveRecord<T: NSManagedObject> {
         for (key, value) in dict {
             let localKey = T.keyForRemoteKey(key, context: context, entity: entity)
             if let _ = entity.attributesByName[localKey] {
-                if let predicate = NSPredicate(format: "%K = %@", key, value) {
-                    subPredicates.append(predicate)
-                }
+                let predicate = NSPredicate(format: "%K = %@", key, value)
+                subPredicates.append(predicate)
             }
         }
         return subPredicates.count > 0 ? NSCompoundPredicate.andPredicateWithSubpredicates(subPredicates) : nil
@@ -182,7 +181,7 @@ public class SobjectiveRecord<T: NSManagedObject> {
         var isAscending = true
         
         for keyOrValue in keyAndValue {
-            if keyOrValue.utf16Count == 0 {
+            if keyOrValue.isEmpty {
                 continue
             }
             if key == nil {
@@ -220,7 +219,7 @@ public class SobjectiveRecord<T: NSManagedObject> {
             println("ERROR WHILE EXECUTE FETCH REEQUEST \(error)");
             result = [T]()
         }
-        return result! as [T]
+        return result! as! [T]
     }
 
 }

@@ -12,7 +12,6 @@
 		A7550AE71AA8633E002D868A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7550AE51AA8633E002D868A /* Main.storyboard */; };
 		A7550AE91AA8633E002D868A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7550AE81AA8633E002D868A /* Images.xcassets */; };
 		A7550AEC1AA8633E002D868A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A7550AEA1AA8633E002D868A /* LaunchScreen.xib */; };
-		A7550AF81AA8633E002D868A /* SobjectiveRecordDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7550AF71AA8633E002D868A /* SobjectiveRecordDemoTests.swift */; };
 		A775D9251AA863D5001D38F5 /* SobjectiveRecordDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A775D9231AA863D5001D38F5 /* SobjectiveRecordDemo.xcdatamodeld */; };
 		A775D92C1AA863FE001D38F5 /* NSManagedObject+SobjectiveRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A775D9271AA863FE001D38F5 /* NSManagedObject+SobjectiveRecord.swift */; };
 		A775D92D1AA863FE001D38F5 /* NSManagedObjectContext+SobjectiveRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A775D9281AA863FE001D38F5 /* NSManagedObjectContext+SobjectiveRecord.swift */; };
@@ -44,16 +43,6 @@
 		A7FA72351AA9A4B70065F2A3 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FA72341AA9A4B70065F2A3 /* Tweet.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		A7550AF21AA8633E002D868A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A7550AD41AA8633E002D868A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A7550ADB1AA8633E002D868A;
-			remoteInfo = SobjectiveRecordDemo;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		101E2DA11AAA525D00493647 /* SobjectiveRecordDemo 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "SobjectiveRecordDemo 2.xcdatamodel"; sourceTree = "<group>"; };
 		A7550ADC1AA8633E002D868A /* SobjectiveRecordDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SobjectiveRecordDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,7 +52,6 @@
 		A7550AE61AA8633E002D868A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A7550AE81AA8633E002D868A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A7550AEB1AA8633E002D868A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		A7550AF11AA8633E002D868A /* SobjectiveRecordDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SobjectiveRecordDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7550AF61AA8633E002D868A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7550AF71AA8633E002D868A /* SobjectiveRecordDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SobjectiveRecordDemoTests.swift; sourceTree = "<group>"; };
 		A775D9241AA863D5001D38F5 /* SobjectiveRecordDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SobjectiveRecordDemo.xcdatamodel; sourceTree = "<group>"; };
@@ -123,13 +111,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A7550AEE1AA8633E002D868A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -146,7 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				A7550ADC1AA8633E002D868A /* SobjectiveRecordDemo.app */,
-				A7550AF11AA8633E002D868A /* SobjectiveRecordDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -273,24 +253,6 @@
 			productReference = A7550ADC1AA8633E002D868A /* SobjectiveRecordDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A7550AF01AA8633E002D868A /* SobjectiveRecordDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A7550AFE1AA8633E002D868A /* Build configuration list for PBXNativeTarget "SobjectiveRecordDemoTests" */;
-			buildPhases = (
-				A7550AED1AA8633E002D868A /* Sources */,
-				A7550AEE1AA8633E002D868A /* Frameworks */,
-				A7550AEF1AA8633E002D868A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A7550AF31AA8633E002D868A /* PBXTargetDependency */,
-			);
-			name = SobjectiveRecordDemoTests;
-			productName = SobjectiveRecordDemoTests;
-			productReference = A7550AF11AA8633E002D868A /* SobjectiveRecordDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -302,10 +264,6 @@
 				TargetAttributes = {
 					A7550ADB1AA8633E002D868A = {
 						CreatedOnToolsVersion = 6.1.1;
-					};
-					A7550AF01AA8633E002D868A = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = A7550ADB1AA8633E002D868A;
 					};
 				};
 			};
@@ -323,7 +281,6 @@
 			projectRoot = "";
 			targets = (
 				A7550ADB1AA8633E002D868A /* SobjectiveRecordDemo */,
-				A7550AF01AA8633E002D868A /* SobjectiveRecordDemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -336,13 +293,6 @@
 				A7550AE71AA8633E002D868A /* Main.storyboard in Resources */,
 				A7550AEC1AA8633E002D868A /* LaunchScreen.xib in Resources */,
 				A7550AE91AA8633E002D868A /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A7550AEF1AA8633E002D868A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,23 +337,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A7550AED1AA8633E002D868A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A7550AF81AA8633E002D868A /* SobjectiveRecordDemoTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A7550AF31AA8633E002D868A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A7550ADB1AA8633E002D868A /* SobjectiveRecordDemo */;
-			targetProxy = A7550AF21AA8633E002D868A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A7550AE51AA8633E002D868A /* Main.storyboard */ = {
@@ -524,40 +458,6 @@
 			};
 			name = Release;
 		};
-		A7550AFF1AA8633E002D868A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SobjectiveRecordDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SobjectiveRecordDemo.app/SobjectiveRecordDemo";
-			};
-			name = Debug;
-		};
-		A7550B001AA8633E002D868A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SobjectiveRecordDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SobjectiveRecordDemo.app/SobjectiveRecordDemo";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -575,15 +475,6 @@
 			buildConfigurations = (
 				A7550AFC1AA8633E002D868A /* Debug */,
 				A7550AFD1AA8633E002D868A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A7550AFE1AA8633E002D868A /* Build configuration list for PBXNativeTarget "SobjectiveRecordDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A7550AFF1AA8633E002D868A /* Debug */,
-				A7550B001AA8633E002D868A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

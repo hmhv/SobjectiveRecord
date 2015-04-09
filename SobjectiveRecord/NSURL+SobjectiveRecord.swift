@@ -45,11 +45,11 @@ public extension NSURL
     
     private class func appName() -> String {
         let infoDictionary = NSBundle.mainBundle().infoDictionary!
-        return infoDictionary["CFBundleName"] as String
+        return infoDictionary["CFBundleName"] as! String
     }
     
     private class func applicationDefaultDirectory() -> NSURL {
         let documentDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return documentDirectory.last as NSURL
+        return documentDirectory.last as! NSURL
     }
 }

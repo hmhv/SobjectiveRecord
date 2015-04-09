@@ -49,11 +49,11 @@ class ViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier! == "TweetSegue" {
-            var vc = segue.destinationViewController as TweetViewController
+            var vc = segue.destinationViewController as! TweetViewController
             vc.twitterAccount = self.twitterAccount
         }
         else {
-            var vc = segue.destinationViewController as TweetViewController
+            var vc = segue.destinationViewController as! TweetViewController
             vc.twitterAccount = self.twitterAccount
             vc.use3Layer = true
         }
